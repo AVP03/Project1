@@ -3,6 +3,6 @@ class conf:
     db_name = "sandwich_maker_api"
     db_port = 3306
     db_user = "root"
-    db_password = "20020821"
+    db_password = "0be7876e26"
     app_host = "localhost"
     app_port = 8000
