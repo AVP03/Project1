@@ -1,4 +1,4 @@
-# controllers/payment.py
+
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from ..models.payments import Payment
@@ -7,16 +7,16 @@ from ..models.orders import Order
 from ..models.customer import Customer
 
 def get_all_payments(db: Session):
-    # Fetch all payments and join with orders and customers to get customer names
-    payments = db.query(Payment).all()  # Getting all payments
+    #get all payments and join with orders and customers to get customer names
+    payments = db.query(Payment).all()  
 
-    # For each payment, get the customer name by joining with the order and customer tables
+    #for each payment, get the customer name by joining with the order and customer tables
     for payment in payments:
         order = db.query(Order).join(Customer).filter(Order.id == payment.order_id).first()
         if order:
-            payment.customer_name = order.customer.name  # Add customer_name to the payment
+            payment.customer_name = order.customer.name  
         else:
-            payment.customer_name = None  # If no customer found, set to None
+            payment.customer_name = None  
     
     return payments
 
@@ -32,11 +32,11 @@ def create_payment(db: Session, payment_data: PaymentCreate):
 def get_payment_by_order_id(db: Session, order_id: int):
     payment = db.query(Payment).filter(Payment.order_id == order_id).first()
     
-    # Join Order with Customer to get customer_name
+    
     if payment:
         order = db.query(Order).join(Customer).filter(Order.id == order_id).first()
         if order:
-            # Attach customer_name to the order
+            
             order.customer_name = order.customer.name
     
     return payment

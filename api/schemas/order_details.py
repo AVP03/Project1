@@ -11,6 +11,7 @@ class OrderDetailBase(BaseModel):
 class OrderDetailCreate(OrderDetailBase):
     order_id: int
     sandwich_id: int
+    quantity: int
 
 class OrderDetailUpdate(BaseModel):
     order_id: Optional[int] = None

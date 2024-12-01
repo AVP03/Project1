@@ -15,8 +15,8 @@ class CustomerResponse(BaseModel):
     customer_id: int
     name: str
     email: str
-    phone_number: str = None
-    address: str = None
+    phone_number: Optional[str] = None
+    address: Optional[str] = None
 
 class Customer(CustomerBase):
     customer_id: int

@@ -30,6 +30,6 @@ def update_customer(customer_id: int, customer_data: CustomerCreate, db: Session
     return controller.update(db=db, customer_id=customer_id, customer_data=customer_data)
 
 # DELETE a customer by ID
-@router.delete("/{customer_id}", response_model=CustomerResponse)
+@router.delete("/{customer_id}", response_model=dict)
 def delete_customer(customer_id: int, db: Session = Depends(get_db)):
     return controller.delete(db=db, customer_id=customer_id)

@@ -19,11 +19,11 @@ def create_rating(db: Session, rating_data: RatingCreate):
     db.refresh(new_rating)
     return new_rating
 
-# Get ratings by order_id
+#get ratings by order_id
 def get_ratings_by_order(db: Session, order_id: int):
     return db.query(Rating).filter(Rating.order_id == order_id).all()
 
-# Update an existing rating
+#update an existing rating
 def update_rating(db: Session, rating_id: int, rating_data: RatingCreate):
     db_rating = db.query(Rating).filter(Rating.id == rating_id).first()
     
@@ -39,7 +39,7 @@ def update_rating(db: Session, rating_id: int, rating_data: RatingCreate):
     else:
         raise HTTPException(status_code=404, detail="Rating not found")
 
-# Delete a rating
+#delete a rating
 def delete_rating(db: Session, rating_id: int):
     db_rating = db.query(Rating).filter(Rating.id == rating_id).first()
     

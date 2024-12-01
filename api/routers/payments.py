@@ -10,22 +10,27 @@ router = APIRouter(
     tags=["Payments"],
 )
 
+#CREATE
 @router.post("/", response_model=Payment)
 def create_payment(payment_data: PaymentCreate, db: Session = Depends(get_db)):
     return controller.create_payment(db=db, payment_data=payment_data)
 
+#READ ONE
 @router.get("/{order_id}", response_model=Payment)
 def get_payment(order_id: int, db: Session = Depends(get_db)):
     return controller.get_payment_by_order_id(db=db, order_id=order_id)
 
+#UPDATE
 @router.put("/{payment_id}", response_model=PaymentResponse)
 def update_payment(payment_id: int, payment_data: PaymentCreate, db: Session = Depends(get_db)):
     return controller.update_payment(db=db, payment_id=payment_id, payment_data=payment_data)
 
+#DELETE
 @router.delete("/{payment_id}", response_model=dict)
 def delete_payment(payment_id: int, db: Session = Depends(get_db)):
     return controller.delete_payment(db=db, payment_id=payment_id)
 
+#READ ALL
 @router.get("/", response_model=list[PaymentResponse])
 def get_all_payments(db: Session = Depends(get_db)):
     return controller.get_all_payments(db=db)

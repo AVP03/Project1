@@ -9,22 +9,27 @@ router = APIRouter(
     prefix="/resources"
 )
 
+#CREATE
 @router.post("/", response_model=schema.Resource)
 def create(request: schema.ResourceCreate, db: Session = Depends(get_db)):
     return controller.create(db=db, request=request)
 
+#READ ALL
 @router.get("/", response_model=list[schema.Resource])
 def read_all(db: Session = Depends(get_db)):
     return controller.read_all(db)
 
-@router.get("/{item_id}", response_model=schema.Resource)
-def read_one(item_id: int, db: Session = Depends(get_db)):
-    return controller.read_one(db=db, item_id=item_id)
+#READ ONE
+@router.get("/{resource_id}", response_model=schema.Resource)  # Updated here
+def read_one(resource_id: int, db: Session = Depends(get_db)):
+    return controller.read_one(db=db, resource_id=resource_id)  # Updated here
 
-@router.put("/{item_id}", response_model=schema.Resource)
-def update(item_id: int, request: schema.ResourceUpdate, db: Session = Depends(get_db)):
-    return controller.update(db=db, item_id=item_id, request=request)
+#UPDATE
+@router.put("/{resource_id}", response_model=schema.Resource)  # Updated here
+def update(resource_id: int, request: schema.ResourceUpdate, db: Session = Depends(get_db)):
+    return controller.update(db=db, resource_id=resource_id, request=request)  # Updated here
 
-@router.delete("/{item_id}")
-def delete(item_id: int, db: Session = Depends(get_db)):
-    return controller.delete(db=db, item_id=item_id)
+#DELETE
+@router.delete("/{resource_id}")  # Updated here
+def delete(resource_id: int, db: Session = Depends(get_db)):
+    return controller.delete(db=db, resource_id=resource_id)  # Updated here

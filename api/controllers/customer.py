@@ -5,6 +5,7 @@ from ..schemas.customer import CustomerCreate
 from fastapi import HTTPException, status
 from ..models.orders import Order
 
+#create customer - ani
 def create(db: Session, customer_data: CustomerCreate):
     db_customer = Customer(**customer_data.dict())
     db.add(db_customer)
@@ -12,6 +13,7 @@ def create(db: Session, customer_data: CustomerCreate):
     db.refresh(db_customer)
     return db_customer
 
+#read one customer - ani
 def read_one(db: Session, customer_id: int):
     return db.query(Customer).filter(Customer.customer_id == customer_id).first()
 
@@ -38,7 +40,7 @@ def delete(db: Session, customer_id: int):
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")
     
-    # Check if the customer has orders
+    #check if the customer has orders
     orders = db.query(Order).filter(Order.customer_id == customer_id).all()
     if orders:
         raise HTTPException(status_code=400, detail="Cannot delete customer with existing orders.")
